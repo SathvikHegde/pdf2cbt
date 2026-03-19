@@ -28,7 +28,7 @@ jobs:
         run: pnpm install
 
       - name: Generate Offline Web Files
-        run: pnpm run generate
+        run: pnpm run generate:web
 
       - name: Setup Capacitor and Android Shell
         run: |
