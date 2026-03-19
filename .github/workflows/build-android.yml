@@ -34,7 +34,16 @@ jobs:
         run: |
           pnpm add @capacitor/core
           pnpm add -D @capacitor/cli
-          npx cap init pdf2cbt com.yourname.pdf2cbt --web-dir .output/public
+          
+          # Dynamically hunt down the generated web directory
+          WEB_DIR=$(find . -type d -path "*/.output/public" | head -n 1)
+          if [ -z "$WEB_DIR" ]; then 
+            WEB_DIR=$(dirname $(find . -type f -name "index.html" -not -path "*/node_modules/*" | head -n 1))
+          fi
+          
+          echo "Found web files at: $WEB_DIR"
+          npx cap init pdf2cbt com.yourname.pdf2cbt --web-dir "$WEB_DIR"
+          
           pnpm add @capacitor/android
           npx cap add android
           npx cap sync android
