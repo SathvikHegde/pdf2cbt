@@ -37,6 +37,7 @@ jobs:
           npx cap init pdf2cbt com.yourname.pdf2cbt --web-dir .output/public
           pnpm add @capacitor/android
           npx cap add android
+          npx cap sync android
 
       - name: Compile the APK
         working-directory: ./android
